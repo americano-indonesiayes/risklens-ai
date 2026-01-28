@@ -1,0 +1,7 @@
+<h2>Login Risklens AI</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+</form>
+<p>Belum punya akun? <a href="{% url 'register' %}">Daftar di sini</a></p>

@@ -35,4 +35,4 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     messages.info(request, "Anda telah logout.")
-    return redirect("home")
+    return redirect("login")

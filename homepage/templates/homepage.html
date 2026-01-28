@@ -1,9 +1,0 @@
-<h1>Risklens AI</h1>
-{% if user.is_authenticated %}
-    <p>Halo, {{ user.username }}! | <a href="{% url 'logout' %}">Logout</a></p>
-{% else %}
-    <a href="{% url 'login' %}">Login</a> | <a href="{% url 'register' %}">Register</a>
-{% endif %}
-
-<h4>AmericanoIndonesiayes</h4>
-<p>ARKAVIDIA</p>

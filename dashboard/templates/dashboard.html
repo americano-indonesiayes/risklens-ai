@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Risklens AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(180deg, #b8c5cb 20%, #4174d3 80%); 
+            min-height: 100vh;
+            margin: 0;
+        }
+        .glass-sidebar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(50px);
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+        }
+        /* Style untuk Sidebar Link (Agar konsisten dengan navbar.html) */
+        .nav-item:hover { background: rgba(255, 255, 255, 0.1); }
+        .nav-active { background: #fde047; color: #0f172a; }
+    </style>
+</head>
+<body class="flex overflow-hidden">
+
+    {% include 'navbar.html' %}
+
+    <main class="flex-1 h-screen overflow-y-auto p-8 lg:p-12">
+        <div class="max-w-6xl mx-auto">
+            
+            <header class="flex justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-4xl font-bold text-white tracking-tight">Dashboard Overview</h2>
+                    <p class="text-white/70 mt-2 text-lg">Halo, <span class="text-yellow-300 font-semibold">{{ user.username }}</span>. Berikut ringkasan risiko hari ini.</p>
+                </div>
+                <div class="hidden md:block">
+                    <span class="px-4 py-2 bg-white/10 rounded-full border border-white/20 text-white text-sm">
+                        <span class="text-yellow-300">●</span> Live Updates
+                    </span>
+                </div>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <div class="glass-card p-8 rounded-[2rem] shadow-xl">
+                    <div class="flex justify-between items-start">
+                        <p class="text-white/60 text-sm font-medium uppercase tracking-wider">Total Analysis</p>
+                        <span class="p-2 bg-blue-500/20 rounded-lg text-blue-300">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                        </span>
+                    </div>
+                    <h3 class="text-5xl font-bold text-white mt-4">24</h3>
+                    <p class="text-green-400 text-xs mt-4 flex items-center">
+                        <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13a1 1 0 102 0V9.414l1.293 1.293a1 1 0 001.414-1.414z"></path></svg>
+                        +12% dari bulan lalu
+                    </p>
+                </div>
+
+                <div class="glass-card p-8 rounded-[2rem] shadow-xl">
+                    <div class="flex justify-between items-start">
+                        <p class="text-white/60 text-sm font-medium uppercase tracking-wider">Active Risks</p>
+                        <span class="p-2 bg-yellow-500/20 rounded-lg text-yellow-300">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                        </span>
+                    </div>
+                    <h3 class="text-5xl font-bold text-yellow-300 mt-4">12</h3>
+                    <p class="text-white/40 text-xs mt-4">4 butuh tindakan segera</p>
+                </div>
+
+                <div class="glass-card p-8 rounded-[2rem] shadow-xl border-l-4 border-l-yellow-300">
+                    <div class="flex justify-between items-start">
+                        <p class="text-white/60 text-sm font-medium uppercase tracking-wider">Reports</p>
+                        <span class="p-2 bg-white/10 rounded-lg text-white">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        </span>
+                    </div>
+                    <h3 class="text-5xl font-bold text-white mt-4">08</h3>
+                    <p class="text-white/40 text-xs mt-4">Siap diunduh</p>
+                </div>
+            </div>
+
+            <div class="glass-card rounded-[2.5rem] p-10">
+                <div class="flex justify-between items-center mb-8">
+                    <h4 class="text-xl font-bold text-white">Recent Risk Assessments</h4>
+                    <button class="text-sm font-bold text-yellow-300 hover:underline">View All</button>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="text-white/40 text-xs uppercase tracking-widest border-b border-white/10">
+                                <th class="pb-4 font-medium">Risk Name</th>
+                                <th class="pb-4 font-medium">Category</th>
+                                <th class="pb-4 font-medium">Severity</th>
+                                <th class="pb-4 font-medium">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-white/80">
+                            <tr class="border-b border-white/5 hover:bg-white/5 transition-all">
+                                <td class="py-5 font-medium">Data Breach Alpha</td>
+                                <td class="py-5">Cybersecurity</td>
+                                <td class="py-5"><span class="px-3 py-1 bg-red-500/20 text-red-400 rounded-full text-xs">High</span></td>
+                                <td class="py-5">In Progress</td>
+                            </tr>
+                            <tr class="border-b border-white/5 hover:bg-white/5 transition-all">
+                                <td class="py-5 font-medium">Infrastructure Failure</td>
+                                <td class="py-5">Operational</td>
+                                <td class="py-5"><span class="px-3 py-1 bg-yellow-500/20 text-yellow-400 rounded-full text-xs">Medium</span></td>
+                                <td class="py-5">Completed</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+</html>

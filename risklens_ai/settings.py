@@ -42,8 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'homepage',
+    'dashboard',
     'authentication',
+    'company_setup',
+    'audit_logs',
 ]
 
 MIDDLEWARE = [
@@ -61,6 +63,7 @@ ROOT_URLCONF = 'risklens_ai.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [BASE_DIR / 'templates'],
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -124,5 +127,5 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'home'
+LOGIN_REDIRECT_URL = 'dashboard'
 LOGOUT_REDIRECT_URL = 'login'

@@ -29,7 +29,12 @@
     <div class="glass-card p-10 rounded-3xl shadow-2xl w-full max-w-md">
         {% if messages %}
             {% for message in messages %}
-                <div class="bg-red-500/20 border border-red-500 text-white p-3 mb-6 text-sm rounded-xl">
+                <div class="p-3 mb-6 text-sm rounded-xl border transition-all 
+                    {% if message.tags == 'success' %}
+                        bg-green-500/20 border-green-500 text-green-100
+                    {% else %}
+                        bg-red-500/20 border-red-500 text-white
+                    {% endif %}">
                     {{ message }}
                 </div>
             {% endfor %}

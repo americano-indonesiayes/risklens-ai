@@ -4,20 +4,32 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
 from .forms import RegisterForm
 from .models import Profile
+from .models import User
 
 def register_view(request):
-    if request.method == "POST":
-        form = RegisterForm(request.POST)
-        if form.is_valid():
-            user = form.save() 
-            role = form.cleaned_data.get('role')
-            Profile.objects.create(user=user, role=role)
-            
-            login(request, user)
-            return redirect("home")
-    else:
-        form = RegisterForm()
-    return render(request, "register.html", {"form": form})
+    if request.method == 'POST':
+        u_name = request.POST.get('username')
+        p_word = request.POST.get('password')
+        cp_word = request.POST.get('confirm_password')
+        u_role = request.POST.get('role')
+        
+        if p_word != cp_word:
+            messages.error(request, "Password tidak cocok!")
+            return redirect('register')
+        
+        if User.objects.filter(username=u_name).exists():
+            messages.error(request, "Username sudah digunakan.")
+            return redirect('register')
+
+        # Membuat user baru dengan field role kustom
+        user = User.objects.create_user(username=u_name, password=p_word)
+        user.role = u_role 
+        user.save()
+        
+        messages.success(request, "Akun berhasil dibuat! Silakan login.")
+        return redirect('login')
+    
+    return render(request, 'register.html')
 
 def login_view(request):
     if request.method == "POST":
@@ -28,7 +40,6 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                messages.info(request, f"Anda berhasil login sebagai {username}.")
                 return redirect("home")
         messages.error(request, "Username atau password salah.")
     else:

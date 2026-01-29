@@ -11,7 +11,7 @@ def register_view(request):
         u_name = request.POST.get('username')
         p_word = request.POST.get('password')
         cp_word = request.POST.get('confirm_password')
-        u_role = request.POST.get('role')
+        u_role = request.POST.get('role') 
         
         if p_word != cp_word:
             messages.error(request, "Password tidak cocok!")
@@ -21,11 +21,13 @@ def register_view(request):
             messages.error(request, "Username sudah digunakan.")
             return redirect('register')
 
-        # Membuat user baru dengan field role kustom
         user = User.objects.create_user(username=u_name, password=p_word)
-        user.role = u_role 
-        user.save()
         
+        if u_role not in ['admin', 'employee']:
+            u_role = 'employee' 
+            
+        Profile.objects.create(user=user, role=u_role) 
+
         messages.success(request, "Akun berhasil dibuat! Silakan login.")
         return redirect('login')
     

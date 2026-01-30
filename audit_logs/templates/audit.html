@@ -50,19 +50,20 @@
             <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
                 <h2 class="text-base font-semibold text-gray-900 mb-4">What are you looking for?</h2>
                 
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+                <form method="get" class="grid grid-cols-1 md:grid-cols-12 gap-4">
                     <div class="md:col-span-5 relative">
-                        <input type="text" placeholder="Search here.." class="w-full border border-gray-200 rounded-lg pl-10 pr-4 py-2.5 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
+                        <input type="text" name="search" value="{{ search_query }}" placeholder="Search here.." class="w-full border border-gray-200 rounded-lg pl-10 pr-4 py-2.5 text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                         </div>
                     </div>
 
                     <div class="md:col-span-3 relative">
-                        <select class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none bg-white cursor-pointer">
-                            <option>Categories</option>
-                            <option>TEXT</option>
-                            <option>PDF</option>
+                        <select name="category" class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none bg-white cursor-pointer">
+                            <option value="">Categories</option>
+                            {% for option in category_options %}
+                                <option value="{{ option }}" {% if category_filter == option %}selected{% endif %}>{{ option|title }}</option>
+                            {% endfor %}
                         </select>
                         <div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-gray-400">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -70,11 +71,11 @@
                     </div>
 
                     <div class="md:col-span-3 relative">
-                        <select class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none bg-white cursor-pointer">
-                            <option>Status</option>
-                            <option>Safe</option>
-                            <option>Moderate</option>
-                            <option>Risk</option>
+                        <select name="status" class="w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm text-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none bg-white cursor-pointer">
+                            <option value="">Status</option>
+                            {% for option in risk_levels %}
+                                <option value="{{ option }}" {% if status_filter == option %}selected{% endif %}>{{ option|title }}</option>
+                            {% endfor %}
                         </select>
                         <div class="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-gray-400">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -86,7 +87,7 @@
                             Search
                         </button>
                     </div>
-                </div>
+                </form>
             </div>
 
             <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
@@ -104,91 +105,35 @@
                 </div>
 
                 <div class="space-y-2 mb-8">
-                    
-                    <div class="bg-white border border-gray-50 rounded-lg px-6 py-4 grid grid-cols-4 items-center hover:bg-gray-50 transition-colors">
-                        <div class="text-sm text-gray-500">July 1, 2024</div>
-                        <div class="flex items-center justify-center gap-4">
-                            <span class="text-sm font-bold text-gray-900 w-12 text-right">J.Smith</span>
-                            <span class="px-2 py-0.5 rounded text-[10px] font-medium bg-blue-100 text-blue-600 w-16 text-center">Employee</span>
-                        </div>
-                        <div class="text-center text-sm text-gray-500">PDF</div>
-                        <div class="flex justify-end">
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-green-50 text-green-600 border border-green-100">
-                                <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> Safe
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="bg-white border border-gray-50 rounded-lg px-6 py-4 grid grid-cols-4 items-center hover:bg-gray-50 transition-colors">
-                        <div class="text-sm text-gray-500">July 25, 2024</div>
-                        <div class="flex items-center justify-center gap-4">
-                            <span class="text-sm font-bold text-gray-900 w-12 text-right">J.Smith</span>
-                            <span class="px-2 py-0.5 rounded text-[10px] font-medium bg-yellow-100 text-yellow-700 w-16 text-center">Admin</span>
-                        </div>
-                        <div class="text-center text-sm text-gray-500">Text</div>
-                        <div class="flex justify-end">
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-orange-50 text-orange-500 border border-orange-100">
-                                <span class="w-1.5 h-1.5 rounded-full bg-orange-500"></span> Moderate
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="bg-white border border-gray-50 rounded-lg px-6 py-4 grid grid-cols-4 items-center hover:bg-gray-50 transition-colors">
-                        <div class="text-sm text-gray-500">August 1, 2024</div>
-                        <div class="flex items-center justify-center gap-4">
-                            <span class="text-sm font-bold text-gray-900 w-12 text-right">J.Smith</span>
-                            <span class="px-2 py-0.5 rounded text-[10px] font-medium bg-blue-100 text-blue-600 w-16 text-center">Employee</span>
-                        </div>
-                        <div class="text-center text-sm text-gray-500">PDF</div>
-                        <div class="flex justify-end">
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-orange-50 text-orange-500 border border-orange-100">
-                                <span class="w-1.5 h-1.5 rounded-full bg-orange-500"></span> Moderate
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="bg-white border border-gray-50 rounded-lg px-6 py-4 grid grid-cols-4 items-center hover:bg-gray-50 transition-colors">
-                        <div class="text-sm text-gray-500">August 22, 2024</div>
-                        <div class="flex items-center justify-center gap-4">
-                            <span class="text-sm font-bold text-gray-900 w-12 text-right">J.Smith</span>
-                            <span class="px-2 py-0.5 rounded text-[10px] font-medium bg-blue-100 text-blue-600 w-16 text-center">Employee</span>
-                        </div>
-                        <div class="text-center text-sm text-gray-500">PDF</div>
-                        <div class="flex justify-end">
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-red-50 text-red-500 border border-red-100">
-                                <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> Risk
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="bg-white border border-gray-50 rounded-lg px-6 py-4 grid grid-cols-4 items-center hover:bg-gray-50 transition-colors">
-                        <div class="text-sm text-gray-500">August 29, 2024</div>
-                        <div class="flex items-center justify-center gap-4">
-                            <span class="text-sm font-bold text-gray-900 w-12 text-right">J.Smith</span>
-                            <span class="px-2 py-0.5 rounded text-[10px] font-medium bg-blue-100 text-blue-600 w-16 text-center">Employee</span>
-                        </div>
-                        <div class="text-center text-sm text-gray-500">PDF</div>
-                        <div class="flex justify-end">
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-red-50 text-red-500 border border-red-100">
-                                <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> Risk
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="bg-white border border-gray-50 rounded-lg px-6 py-4 grid grid-cols-4 items-center hover:bg-gray-50 transition-colors">
-                        <div class="text-sm text-gray-500">September 5, 2024</div>
-                        <div class="flex items-center justify-center gap-4">
-                            <span class="text-sm font-bold text-gray-900 w-12 text-right">J.Smith</span>
-                            <span class="px-2 py-0.5 rounded text-[10px] font-medium bg-blue-100 text-blue-600 w-16 text-center">Employee</span>
-                        </div>
-                        <div class="text-center text-sm text-gray-500">PDF</div>
-                        <div class="flex justify-end">
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-red-50 text-red-500 border border-red-100">
-                                <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> Risk
-                            </span>
-                        </div>
-                    </div>
-
+                    {% if analyses %}
+                        {% for analysis in analyses %}
+                            <div class="bg-white border border-gray-50 rounded-lg px-6 py-4 grid grid-cols-4 items-center hover:bg-gray-50 transition-colors">
+                                <div class="text-sm text-gray-500">{{ analysis.created_at|date:"M d, Y" }}</div>
+                                <div class="flex items-center justify-center gap-4">
+                                    <span class="text-sm font-bold text-gray-900 w-12 text-right">{{ request.user.username }}</span>
+                                    <span class="px-2 py-0.5 rounded text-[10px] font-medium bg-blue-100 text-blue-600 w-16 text-center">Employee</span>
+                                </div>
+                                <div class="text-center text-sm text-gray-500">Text</div>
+                                <div class="flex justify-end">
+                                    {% if analysis.risk_level == "SAFE" %}
+                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-green-50 text-green-600 border border-green-100">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> Safe
+                                        </span>
+                                    {% elif analysis.risk_level == "MODERATE" %}
+                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-orange-50 text-orange-500 border border-orange-100">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-orange-500"></span> Moderate
+                                        </span>
+                                    {% else %}
+                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-red-50 text-red-500 border border-red-100">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-red-500"></span> High
+                                        </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="text-center text-sm text-gray-400 py-6">Belum ada audit logs.</div>
+                    {% endif %}
                 </div>
 
                 <div class="flex justify-between items-center border-t border-gray-100 pt-6">

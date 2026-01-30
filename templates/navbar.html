@@ -5,16 +5,29 @@
 
     <nav class="flex-1 px-4 space-y-1">
         
-        <a href="{% url 'dashboard' %}" 
-           class="flex items-center space-x-3 px-4 py-3 rounded-lg transition-all group
-           {% if request.resolver_match.url_name == 'dashboard' %}
-               bg-[#4281FF] text-white font-semibold border border-[#4174d3]/20
-           {% else %}
-               text-gray-500 hover:bg-gray-50 hover:text-gray-900 font-medium
-           {% endif %}">
-            <i class="bi {% if request.resolver_match.url_name == 'dashboard' %}bi-grid-1x2-fill{% else %}bi-grid-1x2{% endif %}"></i>
-            <span>Dashboard</span>
-        </a>
+        {% if request.user.profile.role == 'admin' %}
+            <a href="{% url 'dashboard' %}" 
+               class="flex items-center space-x-3 px-4 py-3 rounded-lg transition-all group
+               {% if request.resolver_match.url_name == 'dashboard' %}
+                   bg-[#4281FF] text-white font-semibold border border-[#4174d3]/20
+               {% else %}
+                   text-gray-500 hover:bg-gray-50 hover:text-gray-900 font-medium
+               {% endif %}">
+                <i class="bi {% if request.resolver_match.url_name == 'dashboard' %}bi-grid-1x2-fill{% else %}bi-grid-1x2{% endif %}"></i>
+                <span>Dashboard</span>
+            </a>
+        {% else %}
+            <a href="{% url 'dashboard_employee' %}" 
+               class="flex items-center space-x-3 px-4 py-3 rounded-lg transition-all group
+               {% if request.resolver_match.url_name == 'dashboard_employee' %}
+                   bg-[#4281FF] text-white font-semibold border border-[#4174d3]/20
+               {% else %}
+                   text-gray-500 hover:bg-gray-50 hover:text-gray-900 font-medium
+               {% endif %}">
+                <i class="bi {% if request.resolver_match.url_name == 'dashboard_employee' %}bi-grid-1x2-fill{% else %}bi-grid-1x2{% endif %}"></i>
+                <span>Dashboard</span>
+            </a>
+        {% endif %}
 
         <a href="#" 
            class="flex items-center space-x-3 px-4 py-3 rounded-lg transition-all group
@@ -51,7 +64,7 @@
 
         <a href="#" 
            class="flex items-center space-x-3 px-4 py-3 rounded-lg transition-all group
-           {% if request.resolver_match.url_name == 'profile' %}
+           {% if request.resolver_match.url_name == 'settings' %}
                bg-[#4281FF] text-white font-semibold border border-[#4174d3]/20
            {% else %}
                text-gray-500 hover:bg-gray-50 hover:text-gray-900 font-medium
@@ -65,5 +78,4 @@
             <span>Sign Out</span>
         </a>
     </nav>
-    </div>
 </aside>

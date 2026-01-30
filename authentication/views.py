@@ -39,13 +39,26 @@ def login_view(request):
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
+            selected_role = request.POST.get('role') 
+
             user = authenticate(username=username, password=password)
+
             if user is not None:
-                login(request, user)
-                return redirect("dashboard")
-        messages.error(request, "Username atau password salah.")
+                if hasattr(user, 'profile') and user.profile.role == selected_role:
+                    login(request, user)
+                    if user.profile.role == "Admin":
+                        return redirect("dashboard")
+                    else:
+                        return redirect("dashboard_employee")
+                else:
+                    messages.error(request, f"Akun ini bukan terdaftar sebagai {selected_role}.")
+            else:
+                messages.error(request, "Username atau password salah.")
+        else:
+            messages.error(request, "Form tidak valid.")
     else:
         form = AuthenticationForm()
+    
     return render(request, "login.html", {"form": form})
 
 def logout_view(request):

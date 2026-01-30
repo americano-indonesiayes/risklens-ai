@@ -46,7 +46,7 @@ def login_view(request):
             if user is not None:
                 if hasattr(user, 'profile') and user.profile.role == selected_role:
                     login(request, user)
-                    if user.profile.role == "Admin":
+                    if user.profile.role == "admin":
                         return redirect("dashboard")
                     else:
                         return redirect("dashboard_employee")

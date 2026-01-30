@@ -1,0 +1,22 @@
+<div class="relative w-[900px]">
+    <i class="bi bi-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+    <input type="text" placeholder="Search" 
+        class="w-full bg-slate-100 border-none rounded-xl py-2.5 pl-11 pr-4 text-gray-700 placeholder-gray-400 
+               focus:bg-white focus:ring-2 focus:ring-[#4174d3]/20 focus:shadow-sm transition-all text-sm font-medium">
+</div>
+
+<div class="flex items-center space-x-4">
+    <div class="text-right hidden sm:block">
+        <p class="text-sm font-bold text-gray-800">{{ request.user.username|default:"User" }}</p>
+        <p class="text-xs text-gray-500 font-medium">{{ request.user.profile.role|title }}</p>
+    </div>
+    
+    <button class="relative group">
+        <div class="w-10 h-10 rounded-full bg-gray-200 overflow-hidden border border-gray-200 
+                    group-hover:ring-2 group-hover:ring-[#4174d3] group-hover:ring-offset-2 transition-all">
+            <img src="https://ui-avatars.com/api/?name={{ request.user.username }}&background=4174d3&color=fff" 
+                 alt="Profile" class="w-full h-full object-cover">
+        </div>
+        <span class="absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full ring-2 ring-white bg-green-500"></span>
+    </button>
+</div>

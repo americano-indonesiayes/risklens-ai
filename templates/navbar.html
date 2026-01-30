@@ -29,7 +29,7 @@
             </a>
         {% endif %}
 
-        <a href="#" 
+        <a href="{% url 'company_setup' %}" 
            class="flex items-center space-x-3 px-4 py-3 rounded-lg transition-all group
            {% if request.resolver_match.url_name == 'company_setup' %}
                bg-[#4281FF] text-white font-semibold border border-[#4174d3]/20
@@ -40,7 +40,7 @@
             <span>Company Setup</span>
         </a>
 
-        <a href="#" 
+        <a href="{% url 'audit_logs' %}" 
            class="flex items-center space-x-3 px-4 py-3 rounded-lg transition-all group
            {% if request.resolver_match.url_name == 'audit_logs' %}
                bg-[#4281FF] text-white font-semibold border border-[#4174d3]/20
@@ -51,15 +51,15 @@
             <span>Audit Logs</span>
         </a>
 
-        <a href="#" 
-           class="flex items-center space-x-3 px-4 py-3 rounded-lg transition-all group
-           {% if request.resolver_match.url_name == 'profile' %}
+        <a href="{% url 'document_analyzer' %}" 
+          class="flex items-center space-x-3 px-4 py-3 rounded-lg transition-all group
+           {% if request.resolver_match.url_name == 'document_analyzer' %}
                bg-[#4281FF] text-white font-semibold border border-[#4174d3]/20
            {% else %}
                text-gray-500 hover:bg-gray-50 hover:text-gray-900 font-medium
            {% endif %}">
-            <i class="bi bi-person"></i>
-            <span>Profile</span>
+            <i class="bi bi-clipboard-data-fill"></i>            
+            <span>Document Analyzer</span>
         </a>
 
         <a href="#" 
@@ -69,8 +69,8 @@
            {% else %}
                text-gray-500 hover:bg-gray-50 hover:text-gray-900 font-medium
            {% endif %}">
-            <i class="bi bi-gear-fill"></i>
-            <span>Settings</span>
+            <i class="bi bi-person"></i>
+            <span>Profile</span>
         </a>
 
         <a href="{% url 'logout' %}" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-500 hover:bg-red-50 hover:text-red-600 transition-all font-medium">

@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'authentication',
     'company_setup',
     'audit_logs',
+    'document_analyzer',
 ]
 
 MIDDLEWARE = [

@@ -2,5 +2,5 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='login')
-def show_company(request):
-    return render(request, "company.html")
+def show_document(request):
+    return render(request, "document.html")
